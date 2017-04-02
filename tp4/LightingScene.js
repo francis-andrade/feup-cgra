@@ -36,8 +36,9 @@ LightingScene.prototype.init = function(application) {
 	this.floor = new MyQuad(this,0,10,0,12);
 	this.left_wall=new MyQuad(this, -0.6, 1.55, -0.6, 1.55);
 	
-	this.boardA = new Plane(this, BOARD_A_DIVISIONS);
-	this.boardB = new Plane(this, BOARD_B_DIVISIONS);
+	this.boardA = new Plane(this, BOARD_A_DIVISIONS,-0.25,1.25,0,1);
+	this.boardB = new Plane(this, BOARD_B_DIVISIONS,-0.0936,1.0936,0,1);
+	this.column =new MyCylinder(this,90,10);
 
 	// Materials
 	this.materialDefault = new CGFappearance(this);
@@ -72,6 +73,29 @@ LightingScene.prototype.init = function(application) {
 	this.windowAppearance=new CGFappearance(this);
 	this.windowAppearance.loadTexture("../resources/images/window.png");
 	this.windowAppearance.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+
+	this.slidesAppearance=new CGFappearance(this);
+	this.slidesAppearance.loadTexture("../resources/images/slides.png");
+	this.slidesAppearance.setAmbient(0.25,0.25,0.25,1);
+	this.slidesAppearance.setDiffuse(0.75,0.75,0.75,1);
+	this.slidesAppearance.setSpecular(0.25,0.25,0.25,1);	
+	this.slidesAppearance.setShininess(10);
+	this.slidesAppearance.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+
+	this.boardApearence = new CGFappearance(this);
+	this.boardApearence.setAmbient(0.25,0.25,0.25,1);
+	this.boardApearence.setDiffuse(0.25,0.25,0.25,1);
+	this.boardApearence.setSpecular(0.4,0.4,0.4,1);	
+	this.boardApearence.setShininess(120);
+	this.boardApearence.loadTexture("../resources/images/board.png");
+	this.boardApearence.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+
+	this.graniteAppearance=new CGFappearance(this);
+	this.graniteAppearance.loadTexture("../resources/images/granite.jpg");
+	
+
+
+
 };
 
 LightingScene.prototype.initCameras = function() {
@@ -208,8 +232,7 @@ LightingScene.prototype.display = function() {
 	this.pushMatrix();
 		this.translate(4, 4.5, 0.2);
 		this.scale(BOARD_WIDTH, BOARD_HEIGHT, 1);
-		
-		this.materialA.apply();
+		this.slidesAppearance.apply();
 		this.boardA.display();
 	this.popMatrix();
 
@@ -218,9 +241,30 @@ LightingScene.prototype.display = function() {
 		this.translate(10.5, 4.5, 0.2);
 		this.scale(BOARD_WIDTH, BOARD_HEIGHT, 1);
 		
-		this.materialB.apply();
+		this.boardApearence.apply();
 		this.boardB.display();
 	this.popMatrix();
 
+	//ColumnA
+
+	this.pushMatrix();
+	this.graniteAppearance.apply();
+	this.rotate(90 * degToRad, 1, 0, 0);
+	this.translate(1,1,-8);
+	this.scale(1,1,8);
+	this.column.display();
+	this.popMatrix();
+
+//ColumnB
+this.pushMatrix();
+	this.graniteAppearance.apply();
+	this.rotate(90 * degToRad, 1, 0, 0);
+	this.translate(1,14.5,-8);
+	this.scale(1,1,8);
+	this.column.display();
+	this.popMatrix();
+
+
 	// ---- END Primitive drawing section
 };
+

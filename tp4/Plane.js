@@ -1,6 +1,10 @@
 
 /** Represents a plane with nrDivs divisions along both axis, with center at (0,0) */
-function Plane(scene, nrDivs) {
+function Plane(scene, nrDivs,minS=0, maxS=1, minT=0, maxT=1) {
+	this.minS = minS;
+	this.maxS = maxS;
+	this.minT = minT;
+	this.maxT = maxT;
 	CGFobject.call(this,scene);
 
 	// nrDivs = 1 if not provided
@@ -37,7 +41,13 @@ Plane.prototype.initBuffers = function() {
 	this.normals = [];
 	
 	// Uncomment below to init texCoords
-	//this.texCoords = [];
+	this.texCoords = [];
+
+	for(var i=0; i<=this.nrDivs; i++){
+		for(var j=0; j<=this.nrDivs;j++){
+			this.texCoords.push(this.minS+j*(this.maxS-this.minS)/this.nrDivs, this.minT+i*(this.maxT-this.minT)/this.nrDivs);
+		}
+	}
 
 	var yCoord = 0.5;
 
