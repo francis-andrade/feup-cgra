@@ -6,6 +6,7 @@
  	CGFobject.call(this,scene);	
 	this.slices = slices;
 	this.stacks = stacks;
+	this.updated = -1;	
 
  	this.cylinder = new MyCylinder(this.scene, slices, stacks);
 	this.cylinder.initBuffers();
@@ -32,7 +33,7 @@
  	this.scene.translate(0,0,1);
  	this.clockAppearance.apply();
  	this.circle.display();
- 	this.scene.pushMatrix();
+ 	this.scene.popMatrix();
  	
 
 	this.material.apply();
@@ -57,13 +58,13 @@
  };
 
  MyClock.prototype.update = function(currTime) {
-	if (this.lastUpdate == -1) {
-		this.lastUpdate = currTime;
+	if (this.updated == -1) {
+		this.updated = currTime;
 		secInc = 0.6;
 	}
 	else {
-		var diff = currTime - this.lastUpdate;
-		this.lastUpdate = currTime;
+		var diff = currTime - this.updated;
+		this.updated = currTime;
 		secInc = diff * (360 / (60 * 1000));
 	}
 
