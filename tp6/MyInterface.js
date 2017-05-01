@@ -49,6 +49,14 @@ MyInterface.prototype.init = function(application) {
 	// min and max values can be specified as parameters
 	
 	this.gui.add(this.scene, 'speed', -5, 5);
+	var lights = this.gui.addFolder("Luzes");
+	lights.open();
+
+	lights.add(this.scene, 'Luz_1');
+	lights.add(this.scene, 'Luz_2');
+	lights.add(this.scene, 'Luz_3');
+	lights.add(this.scene, 'Luz_4');
+	this.gui.add(this.scene, 'clock_on');
 
 	return true;
 };

@@ -60,6 +60,12 @@ LightingScene.prototype.init = function(application) {
 	this.option1=true;
 	this.option2=false;
 	this.speed=true;
+	this.Luz_1 = false;
+	this.Luz_2 = true;
+	this.Luz_3 = false;
+	this.Luz_4 = true;
+	this.clock_on=true;
+
 
 
 
@@ -205,5 +211,27 @@ this.pushMatrix();
 };
 
 LightingScene.prototype.update = function(currTime) {
-	this.clock.update(currTime);
+	if (this.Luz_1)
+	this.lights[0].enable();
+if (this.Luz_2)
+	this.lights[1].enable();
+if (this.Luz_3)
+	this.lights[2].enable();
+if (this.Luz_4)
+	this.lights[3].enable();
+
+if (!this.Luz_1)
+	this.lights[0].disable();
+if (!this.Luz_2)
+	this.lights[1].disable();
+if (!this.Luz_3)
+	this.lights[2].disable();
+if (!this.Luz_4)
+	this.lights[3].disable();
+
+
+	if(this.clock_on)
+		this.clock.update(currTime);
+
+
 };
