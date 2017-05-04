@@ -60,9 +60,9 @@ LightingScene.prototype.init = function(application) {
 	this.option1=true;
 	this.option2=false;
 	this.speed=true;
-	this.Luz_1 = false;
+	this.Luz_1 = true;
 	this.Luz_2 = true;
-	this.Luz_3 = false;
+	this.Luz_3 = true;
 	this.Luz_4 = true;
 	this.clock_on=true;
 

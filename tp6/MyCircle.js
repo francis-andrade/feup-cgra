@@ -54,10 +54,6 @@
      
 		
 		
- 	
-	console.log(this.vertices);
-	console.log(this.normals);
-	console.log(this.indices);
  	this.primitiveType = this.scene.gl.TRIANGLES;
  	this.initGLBuffers();
  };
