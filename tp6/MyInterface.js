@@ -58,6 +58,8 @@ MyInterface.prototype.init = function(application) {
 	lights.add(this.scene, 'Luz_4');
 	this.gui.add(this.scene, 'clock_on');
 
+	this.gui.add(this.scene, 'Texture', this.scene.submarineAppearanceList );
+
 	return true;
 };
 

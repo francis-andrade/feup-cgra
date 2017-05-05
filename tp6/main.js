@@ -19,6 +19,7 @@ serialInclude([
 	'MySubmarine.js',
 	'MyTriangle.js',
 	'MyTrapezium.js',
+	'MyTrapezium2D.js',
 
 
 	main=function() {

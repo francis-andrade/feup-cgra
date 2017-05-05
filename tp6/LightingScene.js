@@ -52,9 +52,24 @@ LightingScene.prototype.init = function(application) {
 
 
 
-
 	this.graniteAppearance=new CGFappearance(this);
 	this.graniteAppearance.loadTexture("../resources/images/granite.jpg");
+
+	this.woodAppearance=new CGFappearance(this);
+	this.woodAppearance.loadTexture("../resources/images/wood.png");
+	
+	this.goldAppearance=new CGFappearance(this);
+	this.goldAppearance.loadTexture("../resources/images/gold.jpg");
+
+	this.bronzeAppearance=new CGFappearance(this);
+	this.bronzeAppearance.loadTexture("../resources/images/bronze.jpg");
+
+	this.silverAppearance=new CGFappearance(this);
+	this.silverAppearance.loadTexture("../resources/images/silver.jpg");
+
+	this.steelAppearance=new CGFappearance(this);
+	this.steelAppearance.loadTexture("../resources/images/steel.jpg");
+
 
 	//options
 	this.option1=true;
@@ -66,6 +81,19 @@ LightingScene.prototype.init = function(application) {
 	this.Luz_4 = true;
 	this.clock_on=true;
 
+	//GUI Textures
+	this.submarineAppearances=[this.materialDefault, this.steelAppearance, this.graniteAppearance, this.woodAppearance, this.goldAppearance,this.silverAppearance, this.bronzeAppearance];
+	this.submarineAppearanceList={};
+
+	this.submarineAppearanceList["default"]=0;
+	this.submarineAppearanceList["steel"]=1;
+	this.submarineAppearanceList["granite"]=2;
+	this.submarineAppearanceList["wood"]=3;
+	this.submarineAppearanceList["gold"]=4;
+	this.submarineAppearanceList["silver"]=5;
+	this.submarineAppearanceList["bronze"]=6;
+	
+	this.Texture=0;
 
 
 
@@ -201,6 +229,29 @@ this.pushMatrix();
 	//Submarine
 
 	this.pushMatrix();
+
+	if(this.Texture==1){
+		this.steelAppearance.apply();
+	}
+	else if(this.Texture==2){
+		this.graniteAppearance.apply();
+	}
+	else if(this.Texture==3){
+		this.woodAppearance.apply();
+	}
+	else if(this.Texture==4){
+		this.goldAppearance.apply();
+	}
+	else if(this.Texture==5){
+		this.silverAppearance.apply();
+	}
+	else if(this.Texture==6){
+		this.bronzeAppearance.apply();
+	}
+	else{
+		this.materialDefault.apply();
+	}
+	
 	this.translate(8,0,8);
 	this.rotate(180*degToRad,0,1,0);
 	this.submarine.display();
@@ -228,6 +279,7 @@ if (!this.Luz_3)
 	this.lights[2].disable();
 if (!this.Luz_4)
 	this.lights[3].disable();
+
 
 
 	if(this.clock_on)
