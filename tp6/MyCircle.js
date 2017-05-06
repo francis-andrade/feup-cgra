@@ -30,7 +30,7 @@
  			this.normals.push(0);
 			this.normals.push(0);
 			this.normals.push(1);
-			this.texCoords.push(Math.cos(i * teta) * 0.5 + 0.5, Math.sin(i * teta) * 0.5 + 0.5);
+			this.texCoords.push(Math.cos((this.slices-i) * teta) * 0.5 + 0.5, Math.sin((this.slices-i) * teta) * 0.5 + 0.5);
 		
  	}
  	
