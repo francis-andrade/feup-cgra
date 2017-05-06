@@ -108,3 +108,43 @@ MyInterface.prototype.processKeyboard = function(event) {
 	};
 };
 
+MyInterface.prototype.processKeyUp = function(event) {
+	// call CGFinterface default code (omit if you want to override)
+	CGFinterface.prototype.processKeyboard.call(this,event);
+	
+	// Check key codes e.g. here: http://www.asciitable.com/
+	// or use String.fromCharCode(event.keyCode) to compare chars
+	
+	// for better cross-browser support, you may also check suggestions on using event.which in http://www.w3schools.com/jsref/event_key_keycode.asp
+	switch (event.keyCode)
+	{
+		case (65):	// only works for capital 'A', as it is
+			console.log("gay");
+			break;
+		case (97):
+			//left
+			break;
+		case(68):
+			//right
+			break;
+		case(100):
+			//right
+			break;
+		case(87):
+		//front			
+		break;
+		case(119):
+			//front			
+		break;
+		case(83):
+			//back			
+		break;
+		case(115):
+			//back			
+		break;
+			
+
+
+	};
+};
+
