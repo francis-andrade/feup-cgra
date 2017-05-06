@@ -159,7 +159,7 @@ LightingScene.prototype.updateLights = function() {
 
 
 LightingScene.prototype.display = function() {
-	this.setUpdatePeriod(1000);
+	this.setUpdatePeriod(100);
 	//this.setUpdatePeriod(100);
 	// ---- BEGIN Background, camera and axis setup
 
@@ -284,6 +284,8 @@ if (!this.Luz_4)
 
 	if(this.clock_on)
 		this.clock.update(currTime);
+
+		this.submarine.update(currTime);
 
 
 };
