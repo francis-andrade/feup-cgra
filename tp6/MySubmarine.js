@@ -15,6 +15,7 @@ this.body= new MySubmarineBody(this.scene);
 	this.degree=0*degToRad;
 	this.orientation=0;
 	this.velocity=0;
+	this.high=0;
 };
 
 
@@ -26,7 +27,7 @@ MySubmarine.prototype.display = function (){
 	this.scene.pushMatrix();
 
 	
-	this.scene.translate(this.x,0,this.z);
+	this.scene.translate(this.x,this.high,this.z);
 	this.scene.rotate(this.degree,0,1,0);
 	this.body.display();
 	this.scene.popMatrix();
@@ -36,13 +37,14 @@ MySubmarine.prototype.display = function (){
 MySubmarine.prototype.rotateLeft = function ()
 {
 	this.degree += 5*degToRad;
-
+this.body.direction_leme=360 -25;
 
 };
 
 MySubmarine.prototype.rotateRight = function ()
 {
 this.degree -= 5*degToRad;
+this.body.direction_leme=25;
 };
 
 MySubmarine.prototype.moveForward = function ()
@@ -59,6 +61,27 @@ MySubmarine.prototype.moveBack = function ()
 	this.body.increment-=36;
 
 };
+
+MySubmarine.prototype.moveUp = function ()
+{
+this.high+=0.2;
+this.body.high_leme=30;
+};
+MySubmarine.prototype.moveDown = function ()
+{
+this.high-=0.2;
+this.body.high_leme=360-30;
+};
+
+MySubmarine.prototype.resetdirectionLeme =function ()
+{
+	this.body.direction_leme=0;;
+};
+
+MySubmarine.prototype.resethighLeme =function ()
+{
+	this.body.high_leme=0;;
+};	
 
 MySubmarine.prototype.update= function (currTime)
 {

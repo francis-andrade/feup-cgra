@@ -83,6 +83,8 @@ function MySubmarineBody(scene) {
 	this.orientation=0;
 	this.propellerangle=45;
 	this.increment=0;
+	this.direction_leme=0;
+	this.high_leme=0;
 };
 
 
@@ -285,7 +287,7 @@ MySubmarineBody.prototype.display = function (){
 
 	this.scene.rotate(90*degToRad,1,0,0);
 	this.scene.rotate(90*degToRad,0,1,0);
-	this.scene.rotate(this.degree,1,0,0);
+	this.scene.rotate(this.direction_leme*degToRad,FINBACKVER_LENGTH,0,FINBACKVER_WIDTH/2);
  	this.scene.scale(FINBACKVER_HEIGHTBACK, FINBACKVER_LENGTH, FINBACKVER_WIDTH);
 	this.finbackver.display();
 	//this.scene.axis.display();
@@ -306,6 +308,7 @@ MySubmarineBody.prototype.display = function (){
  	this.scene.rotate(270*degToRad,1,0,0);
  	this.scene.rotate(180*degToRad,0,0,1);
  	this.scene.rotate(this.degree,0,0,1);
+ 	this.scene.rotate(this.high_leme*degToRad,1,0,0);
  	//this.scene.axis.display();
  	this.scene.scale(FINBACKHOR_WIDTHBACK, FINBACKHOR_LENGTH, FINBACKHOR_HEIGHT);
 	this.finbackhor.display();
@@ -471,4 +474,3 @@ MySubmarineBody.prototype.display = function (){
 MySubmarineBody.prototype.update= function (currTime){
 	this.propellerangle+=this.increment;
 };
-

@@ -79,7 +79,6 @@ MyInterface.prototype.processKeyboard = function(event) {
 	{
 		case (65):	// only works for capital 'A', as it is
 			this.scene.submarine.rotateLeft();
-			console.log("Key 'A' pressed");
 			break;
 		case (97):
 			this.scene.submarine.rotateLeft();
@@ -102,6 +101,19 @@ MyInterface.prototype.processKeyboard = function(event) {
 		case(115):
 			this.scene.submarine.moveBack();			
 		break;
+		case(81):
+		this.scene.submarine.moveUp();
+		break;
+		case(113):
+		this.scene.submarine.moveUp();
+		break;
+		case(69):
+		this.scene.submarine.moveDown();
+		break;
+		case(101):
+		this.scene.submarine.moveDown();
+		break;
+			
 			
 
 
@@ -119,28 +131,31 @@ MyInterface.prototype.processKeyUp = function(event) {
 	switch (event.keyCode)
 	{
 		case (65):	// only works for capital 'A', as it is
-			console.log("gay");
+			this.scene.submarine.resetdirectionLeme();
 			break;
 		case (97):
+		this.scene.submarine.resetdirectionLeme();
 			//left
 			break;
 		case(68):
+		this.scene.submarine.resetdirectionLeme();
 			//right
 			break;
 		case(100):
+		this.scene.submarine.resetdirectionLeme();
 			//right
 			break;
-		case(87):
-		//front			
+		case(81):
+		this.scene.submarine.resethighLeme();
 		break;
-		case(119):
-			//front			
+		case(113):
+		this.scene.submarine.resethighLeme();
 		break;
-		case(83):
-			//back			
+		case(69):
+		this.scene.submarine.resethighLeme();
 		break;
-		case(115):
-			//back			
+		case(101):
+		this.scene.submarine.resethighLeme();
 		break;
 			
 
