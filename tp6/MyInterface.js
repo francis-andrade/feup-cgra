@@ -113,6 +113,18 @@ MyInterface.prototype.processKeyboard = function(event) {
 		case(101):
 		this.scene.submarine.moveDown();
 		break;
+		case(80):
+		this.scene.submarine.periscopeUp();
+		break;
+		case(112):
+		this.scene.submarine.periscopeUp();
+		break;
+		case(76):
+		this.scene.submarine.periscopeDown();
+		break;
+		case(108):
+		this.scene.submarine.periscopeDown();
+		break;
 			
 			
 

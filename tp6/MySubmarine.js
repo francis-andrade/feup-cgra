@@ -4,7 +4,13 @@
  * @constructor
  */
 
-
+var SPEED_INC=0.2;
+var ANGULARVEL_INC=36;
+var DEGREE_INC=5;
+var HEIGHT_INC=0.2;
+var LEME_HOR=30;
+var LEME_VER=25;
+var PERISCOPE_INC=0.1;
 
 function MySubmarine(scene) {
 	CGFobject.call(this,scene);
@@ -16,6 +22,7 @@ this.body= new MySubmarineBody(this.scene);
 	this.orientation=0;
 	this.velocity=0;
 	this.high=0;
+
 };
 
 
@@ -36,41 +43,41 @@ MySubmarine.prototype.display = function (){
 };
 MySubmarine.prototype.rotateLeft = function ()
 {
-	this.degree += 5*degToRad;
-this.body.direction_leme=360 -25;
+	this.degree += DEGREE_INC*degToRad;
+this.body.direction_leme=360 -LEME_VER;
 
 };
 
 MySubmarine.prototype.rotateRight = function ()
 {
-this.degree -= 5*degToRad;
-this.body.direction_leme=25;
+this.degree -= DEGREE_INC*degToRad;
+this.body.direction_leme=LEME_VER;
 };
 
 MySubmarine.prototype.moveForward = function ()
 {
-	this.velocity+=0.5;
-	this.body.increment+=36;
+	this.velocity+=SPEED_INC;
+	this.body.increment+=ANGULARVEL_INC;
 
 
 };
 
 MySubmarine.prototype.moveBack = function ()
 {
-	this.velocity-=0.5;
-	this.body.increment-=36;
+	this.velocity-=SPEED_INC;
+	this.body.increment-=ANGULARVEL_INC;
 
 };
 
 MySubmarine.prototype.moveUp = function ()
 {
-this.high+=0.2;
-this.body.high_leme=30;
+this.high+=HEIGHT_INC;
+this.body.high_leme=LEME_HOR;
 };
 MySubmarine.prototype.moveDown = function ()
 {
-this.high-=0.2;
-this.body.high_leme=360-30;
+this.high-=HEIGHT_INC;
+this.body.high_leme=360-LEME_HOR;
 };
 
 MySubmarine.prototype.resetdirectionLeme =function ()
@@ -82,6 +89,19 @@ MySubmarine.prototype.resethighLeme =function ()
 {
 	this.body.high_leme=0;;
 };	
+
+MySubmarine.prototype.periscopeUp=function(){
+	if(this.body.periscope_height<0.5){
+		this.body.periscope_height+=PERISCOPE_INC;
+	}
+};
+
+MySubmarine.prototype.periscopeDown=function(){
+	if(this.body.periscope_height>-0.3){
+		this.body.periscope_height-=PERISCOPE_INC;
+	}
+};
+
 
 MySubmarine.prototype.update= function (currTime)
 {

@@ -16,10 +16,11 @@ var TOWER_WIDTH=0.55;          //SCALE
 var TOWER_START=1.1655;        //SCALE
 var TOWERTOP_HEIGHT=0.57;      //MANDATORY
 
-var PERISCOPE_HEIGHT=0.5712;   //SCALE
+var PERISCOPE_HEIGHT=1.5;   //SCALE
 var PERISCOPE_LENGTH=0.0714; //SCALE
 var PERISCOPE_WIDTH=0.05;    //SCALE
 var PERISCOPE_START=1.2852; //SCALE
+var PERISCOPE_STARTZ=0.5712;
 
 var VISOR_WIDTH=PERISCOPE_WIDTH; //MANDATORY
 var  VISORTOP_HEIGHT=0.05355; //	SCALE
@@ -85,6 +86,7 @@ function MySubmarineBody(scene) {
 	this.increment=0;
 	this.direction_leme=0;
 	this.high_leme=0;
+	this.periscope_height=0;
 };
 
 
@@ -174,7 +176,7 @@ MySubmarineBody.prototype.display = function (){
  	//PERISCOPE EXTERIOR
  	this.scene.pushMatrix();
 
-	this.scene.translate(0,SEMISPHERE_HEIGHT/2+TOWERTOP_HEIGHT,0);
+	this.scene.translate(0,SEMISPHERE_HEIGHT/2+TOWERTOP_HEIGHT+PERISCOPE_STARTZ-PERISCOPE_HEIGHT+this.periscope_height,0);
 
  	if(this.orientation==0)
 	this.scene.translate(this.x,0,this.z+BASECYLINDER_HEIGHT-PERISCOPE_START-PERISCOPE_LENGTH/2);
@@ -195,7 +197,7 @@ MySubmarineBody.prototype.display = function (){
  	//PERISCOPE INTERIOR
  	this.scene.pushMatrix();
 
-	this.scene.translate(0,SEMISPHERE_HEIGHT/2+TOWERTOP_HEIGHT+PERISCOPE_HEIGHT,0);
+	this.scene.translate(0,SEMISPHERE_HEIGHT/2+TOWERTOP_HEIGHT+PERISCOPE_HEIGHT+PERISCOPE_STARTZ-PERISCOPE_HEIGHT+this.periscope_height,0);
  	if(this.orientation==0)
 	this.scene.translate(this.x,0,this.z+BASECYLINDER_HEIGHT-PERISCOPE_START-PERISCOPE_LENGTH/2);
 	else if(this.orientation==1)
@@ -215,7 +217,7 @@ MySubmarineBody.prototype.display = function (){
 
 	//VISOR EXTERIOR
 	this.scene.pushMatrix();
- 	this.scene.translate(0,SEMISPHERE_HEIGHT/2+TOWERTOP_HEIGHT+PERISCOPE_HEIGHT-VISOR_LENGTH/2,0);
+ 	this.scene.translate(0,SEMISPHERE_HEIGHT/2+TOWERTOP_HEIGHT+PERISCOPE_STARTZ-VISOR_LENGTH/2+this.periscope_height,0);
 
  	if(this.orientation==0)
 	this.scene.translate(this.x,0,this.z+BASECYLINDER_HEIGHT-PERISCOPE_START+VISORTOP_HEIGHT-VISOR_HEIGHT);
@@ -234,7 +236,7 @@ MySubmarineBody.prototype.display = function (){
 
  	//VISOR INTERIOR
  	this.scene.pushMatrix();
- 	this.scene.translate(0,SEMISPHERE_HEIGHT/2+TOWERTOP_HEIGHT+PERISCOPE_HEIGHT-VISOR_LENGTH/2,0);
+ 	this.scene.translate(0,SEMISPHERE_HEIGHT/2+TOWERTOP_HEIGHT+PERISCOPE_STARTZ-VISOR_LENGTH/2+this.periscope_height,0);
 
  	if(this.orientation==0)
 	this.scene.translate(this.x,0,this.z+BASECYLINDER_HEIGHT-PERISCOPE_START+VISORTOP_HEIGHT-VISOR_HEIGHT+VISOR_HEIGHT);
@@ -268,6 +270,7 @@ MySubmarineBody.prototype.display = function (){
  	this.scene.rotate(270*degToRad,1,0,0);
  	this.scene.rotate(180*degToRad,0,0,1);
  	this.scene.rotate(this.degree,0,0,1);
+ 	this.scene.rotate(this.high_leme*degToRad,1,0,0);
  	//this.scene.axis.display();
  	this.scene.scale(FINTOWER_WIDTHBACK, FINTOWER_LENGTH, FINTOWER_HEIGHT);
 	this.fintower.display();
