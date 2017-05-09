@@ -21,6 +21,9 @@ serialInclude([
 	'MyTrapezium.js',
 	'MyTrapezium2D.js',
 	'MySubmarineBody.js',
+	'MyTarget.js',
+	'MyTorpedoBody.js',
+	'MyTorpedo.js',
 
 
 	main=function() {

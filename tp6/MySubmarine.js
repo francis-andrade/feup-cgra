@@ -4,8 +4,8 @@
  * @constructor
  */
 
-var SPEED_INC=0.2;
-var ANGULARVEL_INC=36;
+var SPEED_INC=1;
+var ANGULARVEL_INC=1;
 var DEGREE_INC=5;
 var HEIGHT_INC=0.2;
 var LEME_HOR=30;
@@ -14,11 +14,11 @@ var PERISCOPE_INC=0.1;
 
 function MySubmarine(scene) {
 	CGFobject.call(this,scene);
-	this.x=0;
-	this.z=0;
+	this.x=8;
+	this.z=8;
 this.body= new MySubmarineBody(this.scene);
 
-	this.degree=0*degToRad;
+	this.degree=180*degToRad;
 	this.orientation=0;
 	this.velocity=0;
 	this.high=0;
@@ -57,7 +57,7 @@ this.body.direction_leme=LEME_VER;
 MySubmarine.prototype.moveForward = function ()
 {
 	this.velocity+=SPEED_INC;
-	this.body.increment+=ANGULARVEL_INC;
+	this.body.increment+=ANGULARVEL_INC*360*UPDATE_SCENE;
 
 
 };
@@ -65,7 +65,7 @@ MySubmarine.prototype.moveForward = function ()
 MySubmarine.prototype.moveBack = function ()
 {
 	this.velocity-=SPEED_INC;
-	this.body.increment-=ANGULARVEL_INC;
+	this.body.increment-=ANGULARVEL_INC*360*UPDATE_SCENE;
 
 };
 
@@ -108,8 +108,8 @@ MySubmarine.prototype.update= function (currTime)
 
 	
 
-	this.x+=this.velocity*Math.sin(this.degree);
-	this.z+=this.velocity*Math.cos(this.degree);
+	this.x+=this.velocity*Math.sin(this.degree)*UPDATE_SCENE;
+	this.z+=this.velocity*Math.cos(this.degree)*UPDATE_SCENE;
 	this.body.update();
 
 	

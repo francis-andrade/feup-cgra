@@ -1,10 +1,7 @@
 var degToRad = Math.PI / 180.0;
+var UPDATE_SCENE=0.05;
+var PLANE_DIV=200;
 
-var BOARD_WIDTH = 6.0;
-var BOARD_HEIGHT = 4.0;
-
-var BOARD_A_DIVISIONS = 30;
-var BOARD_B_DIVISIONS = 100;
 
 function LightingScene() {
 	CGFscene.call(this);
@@ -32,7 +29,9 @@ LightingScene.prototype.init = function(application) {
 
 	// Scene elements
 
-	this.floor = new MyQuad(this,0,5,0,5);
+	this.floor = new Plane(this,PLANE_DIV,0,12,0,12);
+
+	//this.floor=new MyQuad(this, 0,5, 0,5);
 
 	this.column =new MyCylinder(this,90,10);
 
@@ -40,6 +39,10 @@ LightingScene.prototype.init = function(application) {
 
 	this.submarine= new MySubmarine(this);
 
+	this.targets=[new MyTarget(this,0,-4,0,1), new MyTarget(this,-3,-3,-3,0.5), new MyTarget(this,1, -2,1,0.2), new MyTarget(this, -2, -4, 2, 0.5)];
+
+	
+	this.torpedo=new MyTorpedo(this, this.submarine, this.targets);
 	// Materials
 	this.materialDefault = new CGFappearance(this);
 
@@ -95,6 +98,8 @@ LightingScene.prototype.init = function(application) {
 	
 	this.Texture=0;
 
+	this.setUpdatePeriod(UPDATE_SCENE*1000);
+
 
 
 };
@@ -102,6 +107,11 @@ LightingScene.prototype.init = function(application) {
 LightingScene.prototype.doSomething     = function(){
 	console.log("Doing something...");
 };
+
+LightingScene.prototype.Options     = function(){
+	console.log("Options...");
+};
+
 
 LightingScene.prototype.initCameras = function() {
 	this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(30, 30, 30), vec3.fromValues(0, 0, 0));
@@ -159,8 +169,7 @@ LightingScene.prototype.updateLights = function() {
 
 
 LightingScene.prototype.display = function() {
-	this.setUpdatePeriod(100);
-	//this.setUpdatePeriod(100);
+
 	// ---- BEGIN Background, camera and axis setup
 
 	// Clear image and depth buffer everytime we update the scene
@@ -192,14 +201,31 @@ LightingScene.prototype.display = function() {
 
 	// ---- BEGIN Primitive drawing section
 
-	// Floor
+	// Floor Plane
+	this.pushMatrix();
+		this.translate(-PLANE_DIV/2, 0, -PLANE_DIV/2);
+		this.rotate(-90 * degToRad, 1, 0, 0);
+		//this.scale(15, 15, 0.2);
+		this.floorAppearance.apply();
+		this.floor.display();
+	this.popMatrix();
+	this.pushMatrix();
+	this.translate(-PLANE_DIV/2, 0, PLANE_DIV/2);
+		this.rotate(90 * degToRad, 1, 0, 0);
+		//this.scale(15, 15, 0.2);
+		this.floorAppearance.apply();
+		this.floor.display();
+
+	this.popMatrix();
+
+	/*//Floor Quad
 	this.pushMatrix();
 		this.translate(7.5, 0, 7.5);
 		this.rotate(-90 * degToRad, 1, 0, 0);
 		this.scale(15, 15, 0.2);
 		this.floorAppearance.apply();
 		this.floor.display();
-	this.popMatrix();
+	this.popMatrix();*/
 
 
 
@@ -252,11 +278,31 @@ this.pushMatrix();
 		this.materialDefault.apply();
 	}
 	
-	this.translate(8,0,8);
-	this.rotate(180*degToRad,0,1,0);
+	//this.translate(8,0,8);
+	//this.rotate(180*degToRad,0,1,0);
 	this.submarine.display();
 	this.popMatrix();
+	//Torpedo
+	this.pushMatrix();
+	this.torpedo.display();
+	this.popMatrix();
+	this.materialDefault.apply();
 
+	//TARGETS
+	this.steelAppearance.apply();
+	this.pushMatrix();
+	this.targets[0].display();
+	this.popMatrix();
+	this.pushMatrix();
+	this.targets[1].display();
+	this.popMatrix();
+	this.pushMatrix();
+	this.targets[2].display();
+	this.popMatrix();
+	this.pushMatrix();
+	this.targets[3].display();
+	this.popMatrix();
+	this.materialDefault.apply();
 
 	// ---- END Primitive drawing section
 };
@@ -286,6 +332,7 @@ if (!this.Luz_4)
 		this.clock.update(currTime);
 
 		this.submarine.update(currTime);
+		this.torpedo.update(currTime);
 
 
 };

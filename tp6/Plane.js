@@ -11,7 +11,7 @@ function Plane(scene, nrDivs,minS=0, maxS=1, minT=0, maxT=1) {
 	nrDivs = typeof nrDivs !== 'undefined' ? nrDivs : 1;
 
 	this.nrDivs = nrDivs;
-	this.patchLength = 1.0 / nrDivs;
+	this.patchLength = 1.0;
 
 	this.initBuffers();
 };
@@ -49,11 +49,11 @@ Plane.prototype.initBuffers = function() {
 		}
 	}
 
-	var yCoord = 0.5;
+	var yCoord = 0;
 
 	for (var j = 0; j <= this.nrDivs; j++) 
 	{
-		var xCoord = -0.5;
+		var xCoord = 0;
 		for (var i = 0; i <= this.nrDivs; i++) 
 		{
 			this.vertices.push(xCoord, yCoord, 0);

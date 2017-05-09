@@ -30,25 +30,26 @@ MyInterface.prototype.init = function(application) {
 	// the identifier 'doSomething' must be a function declared as part of that object (i.e. a member of the scene class)
 	// e.g. LightingScene.prototype.doSomething = function () { console.log("Doing something..."); }; 
 
-	this.gui.add(this.scene, 'doSomething');	
+	//this.gui.add(this.scene, 'doSomething');	
+	this.gui.add(this.scene, 'Options');	
 
 	// add a group of controls (and open/expand by defult)
 	
-	var group=this.gui.addFolder("Options");
+	/*var group=this.gui.addFolder("Options");
 	group.open();
 
 	// add two check boxes to the group. The identifiers must be members variables of the scene initialized in scene.init as boolean
 	// e.g. this.option1=true; this.option2=false;
 	
 	group.add(this.scene, 'option1');
-	group.add(this.scene, 'option2');
+	group.add(this.scene, 'option2');*/
 	
 	// add a slider
 	// must be a numeric variable of the scene, initialized in scene.init e.g.
 	// this.speed=3;
 	// min and max values can be specified as parameters
 	
-	this.gui.add(this.scene, 'speed', -5, 5);
+	//this.gui.add(this.scene, 'speed', -5, 5);
 	var lights = this.gui.addFolder("Luzes");
 	lights.open();
 
@@ -79,39 +80,51 @@ MyInterface.prototype.processKeyboard = function(event) {
 	{
 		case (65):	// only works for capital 'A', as it is
 			this.scene.submarine.rotateLeft();
+			
 			break;
 		case (97):
 			this.scene.submarine.rotateLeft();
+			
 			break;
 		case(68):
 			this.scene.submarine.rotateRight();
+
 			break;
 		case(100):
 			this.scene.submarine.rotateRight();
+	
 			break;
 		case(87):
-		this.scene.submarine.moveForward();			
+			this.scene.submarine.moveForward();	
+
 		break;
 		case(119):
-			this.scene.submarine.moveForward();			
+			this.scene.submarine.moveForward();
+			
 		break;
 		case(83):
-			this.scene.submarine.moveBack();			
+			this.scene.submarine.moveBack();
+		
 		break;
 		case(115):
-			this.scene.submarine.moveBack();			
+			this.scene.submarine.moveBack();
+		
 		break;
 		case(81):
-		this.scene.submarine.moveUp();
+			this.scene.submarine.moveUp();
+	
 		break;
 		case(113):
 		this.scene.submarine.moveUp();
+
 		break;
 		case(69):
 		this.scene.submarine.moveDown();
+
 		break;
 		case(101):
 		this.scene.submarine.moveDown();
+	
 		break;
 		case(80):
 		this.scene.submarine.periscopeUp();
@@ -124,6 +137,12 @@ MyInterface.prototype.processKeyboard = function(event) {
 		break;
 		case(108):
 		this.scene.submarine.periscopeDown();
+		break;
+		case(70):
+		this.scene.torpedo.Position();
+		break;
+		case(102):
+		this.scene.torpedo.Position();
 		break;
 			
 			
