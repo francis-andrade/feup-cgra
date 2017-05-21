@@ -63,29 +63,7 @@
  		}
  	}
  	
-/*
- 	
 
-for(var j=0;j<this.stacks;j++){
- 		for(var i=0;i<this.slices;i++){
-			this.normals.push(Math.cos((i+0.5)*teta));
-			this.normals.push(Math.sin((i+0.5)*teta));
-			this.normals.push(0);
-
- 		}
-}
-
-
-for(var j=0;j<this.stacks;j++){
- 		for(var i=0;i<this.slices;i++){
-			this.normals.push(Math.cos((i-0.5)*teta));
-			this.normals.push(Math.sin((i-0.5)*teta));
-			this.normals.push(0);
-
- 		}
-}
-
- 	*/
 	console.log(this.vertices);
 	console.log(this.normals);
 	console.log(this.indices);

@@ -48,6 +48,7 @@ LightingScene.prototype.init = function(application) {
 	this.particle=new MyParticle(this, 1, 2, 45*degToRad, 5*degToRad, 4);
 	// Materials
 	this.materialDefault = new CGFappearance(this);
+	this.old_speed=0;
 
 
 	//Textures
@@ -83,7 +84,7 @@ LightingScene.prototype.init = function(application) {
 	//options
 	this.option1=true;
 	this.option2=false;
-	this.speed=true;
+	this.speed=0;
 	this.Luz_1 = true;
 	this.Luz_2 = true;
 	this.Luz_3 = true;
@@ -322,6 +323,7 @@ this.pushMatrix();
 };
 
 LightingScene.prototype.update = function(currTime) {
+
 	if (this.Luz_1)
 	this.lights[0].enable();
 if (this.Luz_2)
@@ -349,6 +351,18 @@ if (!this.Luz_4)
 	this.torpedo.update(currTime);
 	for(var i=0;i<this.targets.length;i++){
 		this.targets[i].update(currTime);
+	}
+	if(this.speed<this.submarine.velocity){
+		for(var i=0; i<(this.submarine.velocity-this.speed);i++){
+			this.submarine.move();
+		}
+		
+	}
+	if(this.speed>this.submarine.velocity ){
+		for(var i=0; i<(this.speed-this.submarine.velocity);i++){
+			this.submarine.moveForward();
+		}
+		
 	}
 
 };
