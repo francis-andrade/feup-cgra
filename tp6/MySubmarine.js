@@ -31,11 +31,13 @@ MySubmarine.prototype.constructor=MySubmarine;
 
 
 MySubmarine.prototype.display = function (){
-	this.scene.pushMatrix();
-
-	
+	this.scene.pushMatrix();   
+  
+   
 	this.scene.translate(this.x,this.high,this.z);
+	 this.scene.translate(0, 0, 3.2);
 	this.scene.rotate(this.degree,0,1,0);
+	 this.scene.translate(0, 0, -3.2);
 	this.body.display();
 	this.scene.popMatrix();
 	

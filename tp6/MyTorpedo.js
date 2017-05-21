@@ -45,7 +45,9 @@ MyTorpedo.prototype.display = function (){
 	if(this.fire==0){
 		this.scene.pushMatrix();
 		this.scene.translate(this.submarine.x, this.submarine.high+this.relative_height, this.submarine.z);
+		 this.scene.translate(0, 0, 3.2);
 		this.scene.rotate(this.submarine.degree,0,1,0);
+		this.scene.translate(0, 0, -3.2);
 		this.scene.translate(0, 0, BASECYLINDER_HEIGHT/2-0.5);
 		this.scene.scale(1/BASECYLINDER_HEIGHT, 1/BASECYLINDER_HEIGHT, 1/BASECYLINDER_HEIGHT);
 		this.body.display();
