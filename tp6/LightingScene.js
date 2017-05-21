@@ -39,7 +39,7 @@ LightingScene.prototype.init = function(application) {
 
 	this.submarine= new MySubmarine(this);
 
-	this.targets=[new MyTarget(this,0,-4,0,1), new MyTarget(this,-3,-3,-3,0.5), new MyTarget(this,1, -2,1,0.2), new MyTarget(this, -2, -4, 2, 0.5)];
+	this.targets=[new MyTarget(this,0,6,0,1), new MyTarget(this,-3,10,-3,0.5), new MyTarget(this,1, 4,1,0.2), new MyTarget(this, -2, 3, 2, 0.5)];
 
 	
 	this.torpedo=new MyTorpedo(this, this.submarine, this.targets);
