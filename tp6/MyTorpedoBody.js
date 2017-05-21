@@ -35,8 +35,6 @@ MyTorpedoBody.prototype.display = function (){
 	//Base cylinder
 	this.scene.pushMatrix();
  	this.scene.scale(SEMISPHERE_WIDTH/2,SEMISPHERE_HEIGHT/2,BASECYLINDER_HEIGHT);
- 	//this.scene.axis.display();
- 	//this.triangle.display();
  	this.basecylinder.display();
  	this.scene.popMatrix();
 
@@ -62,7 +60,6 @@ MyTorpedoBody.prototype.display = function (){
 	this.scene.rotate(90*degToRad,0,1,0);
  	this.scene.scale(FINBACKVER_HEIGHTBACK, FINBACKVER_LENGTH, FINBACKVER_WIDTH);
 	this.finbackver.display();
-	//this.scene.axis.display();
  	this.scene.popMatrix();
 
  	//FINBACKHOR
@@ -73,10 +70,8 @@ MyTorpedoBody.prototype.display = function (){
 	
  	this.scene.rotate(270*degToRad,1,0,0);
  	this.scene.rotate(180*degToRad,0,0,1);
- 	//this.scene.axis.display();
  	this.scene.scale(FINBACKHOR_WIDTHBACK, FINBACKHOR_LENGTH, FINBACKHOR_HEIGHT);
 	this.finbackhor.display();
-	//this.scene.axis.display();
  	this.scene.popMatrix();
 
 }

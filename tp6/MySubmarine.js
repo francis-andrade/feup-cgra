@@ -60,10 +60,8 @@ this.body.direction_leme=LEME_VER;
 };
 
 MySubmarine.prototype.moveForward = function ()
-{
-	if(this.velocity<=5){
+{	if(this.velocity<=5){
 	this.velocity+=SPEED_INC;
-	this.scene.speed+=SPEED_INC;
 	this.body.increment+=ANGULARVEL_INC*360*UPDATE_SCENE;
 	}
 
@@ -71,10 +69,8 @@ MySubmarine.prototype.moveForward = function ()
 };
 
 MySubmarine.prototype.moveBack = function ()
-{
-	if(this.velocity>=-5){
+{	if(this.velocity>=-5){
 	this.velocity-=SPEED_INC;
-	this.scene.speed-=SPEED_INC;
 	this.body.increment-=ANGULARVEL_INC*360*UPDATE_SCENE;
 	}
 
@@ -82,8 +78,7 @@ MySubmarine.prototype.moveBack = function ()
 
 MySubmarine.prototype.moveUp = function ()
 {
-/*this.high+=HEIGHT_INC;
-this.body.high_leme=LEME_HOR;*/ 
+
 if(this.vertical_degree>=(-(Math.PI/4))){ 
 	this.vertical_degree-= DEGREE_INC*degToRad; 
 	this.body.high_leme=LEME_HOR; 
@@ -91,8 +86,7 @@ if(this.vertical_degree>=(-(Math.PI/4))){
 };
 MySubmarine.prototype.moveDown = function ()
 {
-/*this.high-=HEIGHT_INC;
-this.body.high_leme=360-LEME_HOR;*/
+
 	if(this.vertical_degree<=(Math.PI/4)){  
 		this.vertical_degree+= DEGREE_INC*degToRad; 
  		this.body.high_leme=360-LEME_HOR; 
@@ -131,7 +125,6 @@ MySubmarine.prototype.update= function (currTime)
 	this.z+=this.velocity*Math.cos(this.degree)*UPDATE_SCENE;
 	this.high+=this.velocity*Math.tan(-this.vertical_degree)*UPDATE_SCENE; 
 	this.body.update();
-	
 
 	
 

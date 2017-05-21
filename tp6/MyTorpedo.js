@@ -60,7 +60,6 @@ MyTorpedo.prototype.display = function (){
 		this.scene.translate(this.x, this.high, this.z);
 		this.scene.rotate(this.degree,0,1,0);
 		this.scene.rotate(this.slope,1,0,0);
-		//this.scene.translate(this.radius_count,0,0,1);
 		this.scene.scale(1/BASECYLINDER_HEIGHT, 1/BASECYLINDER_HEIGHT, 1/BASECYLINDER_HEIGHT);
 		this.body.display();
 		this.scene.popMatrix();
@@ -86,21 +85,6 @@ MyTorpedo.prototype.Position = function ()
 }
 
 MyTorpedo.prototype.Fire=function(){
-	/*if(this.target!=0 && this.fire==0){
-		this.position=0;
-		this.fire=1;
-		this.fire_time=0;
-		this.x=this.submarine.x+(BASECYLINDER_HEIGHT/2-0.5)*Math.sin(this.submarine.degree)-SUBMARINE_ROT_ADV*Math.sin(this.submarine.degree);
-		this.z=this.submarine.z+(BASECYLINDER_HEIGHT/2-0.5)*Math.cos(this.submarine.degree)-SUBMARINE_ROT_ADV*(Math.cos(this.submarine.degree)-1)+SUBMARINE_ROT_ADV*(Math.cos(this.submarine.vertical_degree)-1);
-		this.high=this.submarine.high+this.relative_height+SUBMARINE_ROT_ADV*Math.sin(this.submarine.vertical_degree);
-		this.degree=this.submarine.degree;
-		this.slope=this.submarine.vertical_degree;
-		this.fire_totaltime=Math.sqrt((this.x-this.target.x)*(this.x-this.target.x)+(this.high-this.target.y)*(this.high-this.target.y)+(this.z-this.target.z)*(this.z-this.target.z))/TORPEDO_SPEED;
-		this.P1=[this.x, this.high, this.z];
-		this.P2=[this.x+6*Math.sin(this.degree)*Math.cos(this.slope), this.high+6*Math.sin(-this.slope), this.z+6*Math.cos(this.degree)*Math.cos(this.slope)];
-		this.P3=[this.target.x, this.target.y+3, this.target.z];
-		this.P4=[this.target.x, this.target.y, this.target.z];
-	}*/
 	if(this.target!=0 && this.fire==0){
 		this.position=0;
 		this.fire=1;
@@ -158,7 +142,6 @@ MyTorpedo.prototype.update= function (currTime)
 			var high=(1-t)*(1-t)*(1-t)*this.P1[1]+3*t*(1-t)*(1-t)*this.P2[1]+3*t*t*(1-t)*this.P3[1]+t*t*t*this.P4[1];
 			var z=(1-t)*(1-t)*(1-t)*this.P1[2]+3*t*(1-t)*(1-t)*this.P2[2]+3*t*t*(1-t)*this.P3[2]+t*t*t*this.P4[2];
 			var P=[x, high, z];
-			//var P=[this.x-0.05, this.high-0.05, this.z+0.05];
 			if((this.z-P[2])==0){
 				if((this.x-P[0])<0){
 					this.degree=90*degToRad;

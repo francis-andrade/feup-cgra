@@ -45,10 +45,9 @@ LightingScene.prototype.init = function(application) {
 	this.torpedo=new MyTorpedo(this, this.submarine, this.targets);
 
 
-	this.particle=new MyParticle(this, 1, 2, 45*degToRad, 5*degToRad, 4);
+
 	// Materials
 	this.materialDefault = new CGFappearance(this);
-	this.old_speed=0;
 
 
 	//Textures
@@ -84,7 +83,7 @@ LightingScene.prototype.init = function(application) {
 	//options
 	this.option1=true;
 	this.option2=false;
-	this.speed=0;
+	this.speed=true;
 	this.Luz_1 = true;
 	this.Luz_2 = true;
 	this.Luz_3 = true;
@@ -212,28 +211,18 @@ LightingScene.prototype.display = function() {
 	this.pushMatrix();
 		this.translate(-PLANE_DIV/2, 0, -PLANE_DIV/2);
 		this.rotate(-90 * degToRad, 1, 0, 0);
-		//this.scale(15, 15, 0.2);
 		this.floorAppearance.apply();
 		this.floor.display();
 	this.popMatrix();
 	this.pushMatrix();
 	this.translate(-PLANE_DIV/2, 0, PLANE_DIV/2);
 		this.rotate(90 * degToRad, 1, 0, 0);
-		//this.scale(15, 15, 0.2);
 		this.floorAppearance.apply();
 		this.floor.display();
 
 	this.popMatrix();
 
-	//Floor Quad
-	/*this.pushMatrix();
-		this.translate(7.5, 0, 7.5);
-		this.rotate(-90 * degToRad, 1, 0, 0);
-		this.scale(15, 15, 0.2);
-		this.floorAppearance.apply();
-		this.floor.display();
-	this.popMatrix();*/
-
+	
 
 
 
@@ -243,7 +232,6 @@ LightingScene.prototype.display = function() {
 //ColumnB
 this.pushMatrix();
 	this.graniteAppearance.apply();
-	//this.rotate(90 * degToRad, 1, 0, 0);
 	this.translate(8,5,0);
 	this.rotate(90 * degToRad, 1, 0, 0);
 	this.scale(0.625,0.625,5);
@@ -285,8 +273,7 @@ this.pushMatrix();
 		this.materialDefault.apply();
 	}
 	
-	//this.translate(8,0,8);
-	//this.rotate(180*degToRad,0,1,0);
+	
 	this.submarine.display();
 	this.popMatrix();
 	//Torpedo
@@ -323,7 +310,6 @@ this.pushMatrix();
 };
 
 LightingScene.prototype.update = function(currTime) {
-
 	if (this.Luz_1)
 	this.lights[0].enable();
 if (this.Luz_2)
@@ -351,18 +337,6 @@ if (!this.Luz_4)
 	this.torpedo.update(currTime);
 	for(var i=0;i<this.targets.length;i++){
 		this.targets[i].update(currTime);
-	}
-	if(this.speed<this.submarine.velocity){
-		for(var i=0; i<(this.submarine.velocity-this.speed);i++){
-			this.submarine.move();
-		}
-		
-	}
-	if(this.speed>this.submarine.velocity ){
-		for(var i=0; i<(this.speed-this.submarine.velocity);i++){
-			this.submarine.moveForward();
-		}
-		
 	}
 
 };

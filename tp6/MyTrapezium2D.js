@@ -25,17 +25,11 @@ MyTrapezium2D.prototype.initBuffers = function () {
             -0.5, 0, 0,
             -this.top/2, 1, 0,
             this.top/2, 1, 0,
-             /*-0.5, -0.5, 0,
-             0.5, -0.5, 0,
-              -this.top/2, 0.5, 0,
-            this.top/2, 0.5, 0,*/
 			];
 
 	this.indices = [
             0, 2, 1, 
 			0, 3, 2,
-			/* 0, 1, 2, 
-			3, 2, 1*/
         ];
 		
 	
@@ -57,10 +51,6 @@ MyTrapezium2D.prototype.initBuffers = function () {
 		this.minS, this.minT,
 		this.maxS, this.minT,
 
-		/* this.minS, this.maxT,
-		this.maxS, this.maxT,
-		this.minS, this.minT,
-		this.maxS, this.minT,*/
 	];
 	
 
