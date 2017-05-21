@@ -12,7 +12,7 @@
  };
 
  MyLamp.prototype = Object.create(CGFobject.prototype);
- MyLamp.prototype.constructor = MyLamp;
+ MyLamp.prototype.constructor = MyPrism;
 
  MyLamp.prototype.initBuffers = function() {
  

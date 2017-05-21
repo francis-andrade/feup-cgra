@@ -19,7 +19,7 @@ LightingScene.prototype.init = function(application) {
 
 	this.initLights();
 
-	this.gl.clearColor(0.0, 0.0, 255.0, 1.0);
+	this.gl.clearColor(0.0, 0.6, 255.0, 1.0);
 	this.gl.clearDepth(100.0);
 	this.gl.enable(this.gl.DEPTH_TEST);
 	this.gl.enable(this.gl.CULL_FACE);
@@ -39,10 +39,13 @@ LightingScene.prototype.init = function(application) {
 
 	this.submarine= new MySubmarine(this);
 
-	this.targets=[new MyTarget(this,0,6,0,1), new MyTarget(this,-3,10,-3,0.5), new MyTarget(this,1, 4,1,0.2), new MyTarget(this, -2, 3, 2, 0.5)];
+	this.targets=[new MyTarget(this,0,4,0,1,1), new MyTarget(this,-3,5,-3,0.5,1), new MyTarget(this,1, 8,1,0.2,1), new MyTarget(this, -2, 4, 2, 0.5,1)];
 
 	
 	this.torpedo=new MyTorpedo(this, this.submarine, this.targets);
+
+
+	this.particle=new MyParticle(this, 1, 2, 45*degToRad, 5*degToRad, 4);
 	// Materials
 	this.materialDefault = new CGFappearance(this);
 
@@ -73,11 +76,14 @@ LightingScene.prototype.init = function(application) {
 	this.steelAppearance=new CGFappearance(this);
 	this.steelAppearance.loadTexture("../resources/images/steel.jpg");
 
+	this.explosionAppearance=new CGFappearance(this);
+	this.explosionAppearance.loadTexture("../resources/images/explosion.jpg");
+
 
 	//options
 	this.option1=true;
 	this.option2=false;
-	this.speed=0;
+	this.speed=true;
 	this.Luz_1 = true;
 	this.Luz_2 = true;
 	this.Luz_3 = true;
@@ -218,8 +224,8 @@ LightingScene.prototype.display = function() {
 
 	this.popMatrix();
 
-	/*//Floor Quad
-	this.pushMatrix();
+	//Floor Quad
+	/*this.pushMatrix();
 		this.translate(7.5, 0, 7.5);
 		this.rotate(-90 * degToRad, 1, 0, 0);
 		this.scale(15, 15, 0.2);
@@ -294,15 +300,23 @@ this.pushMatrix();
 	this.targets[0].display();
 	this.popMatrix();
 	this.pushMatrix();
+	this.steelAppearance.apply();
 	this.targets[1].display();
 	this.popMatrix();
 	this.pushMatrix();
+	this.steelAppearance.apply();
 	this.targets[2].display();
 	this.popMatrix();
 	this.pushMatrix();
+	this.steelAppearance.apply();
 	this.targets[3].display();
 	this.popMatrix();
 	this.materialDefault.apply();
+	
+	
+
+
+
 
 	// ---- END Primitive drawing section
 };
@@ -331,10 +345,10 @@ if (!this.Luz_4)
 	if(this.clock_on)
 		this.clock.update(currTime);
 
-		this.submarine.update(currTime);
-		this.torpedo.update(currTime);
-
-		this.submarine.velocity=this.speed;
-
+	this.submarine.update(currTime);
+	this.torpedo.update(currTime);
+	for(var i=0;i<this.targets.length;i++){
+		this.targets[i].update(currTime);
+	}
 
 };

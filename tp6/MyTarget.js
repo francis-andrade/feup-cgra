@@ -1,4 +1,8 @@
-function MyTarget(scene, x, y, z, size) {
+var PARTICLENO_MULTIPLIER=200;
+var EXPLOSIONSIZE_MULTIPLIER=2;
+var PARTICLE_SIZE=0.5;
+
+function MyTarget(scene, x, y, z, size, explosion_time) {
 	CGFobject.call(this,scene);
 	this.sphere=new MyLamp(this.scene, 80, 80);
 	this.cylinder=new MyCylinder(this.scene, 80, 1);
@@ -7,6 +11,31 @@ function MyTarget(scene, x, y, z, size) {
 	this.z=z;
 	this.size=size;
 	this.destroyed=0;
+	this.explosion=0;
+	this.explosion_count=0;
+	this.explosion_time=explosion_time;
+	this.particle=new MyParticle(this.scene);
+	this.psize=[];
+	this.ptime=[];
+	this.pdegree=[];
+	this.pslope=[];
+	this.pradius=[];
+	this.pradius_count=[];
+	this.pvisible=[];
+	this.ptime_count=[];
+	this.pstart=[];
+	console.log(this.explosion_time);
+	for(var i=0;i<PARTICLENO_MULTIPLIER;i++){
+		this.psize.push(Math.random()*PARTICLE_SIZE);
+		this.ptime.push(this.explosion_time/3);
+		this.pdegree.push(Math.random()*360);
+		this.pslope.push(Math.random()*360);
+		this.pradius.push(this.size*EXPLOSIONSIZE_MULTIPLIER/2+Math.random()*this.size*EXPLOSIONSIZE_MULTIPLIER/2-i*(this.size*EXPLOSIONSIZE_MULTIPLIER/2)/(PARTICLENO_MULTIPLIER));
+		this.pradius_count.push(0);
+		this.pvisible.push(0);
+		this.ptime_count.push(0);
+		this.pstart.push((2*this.explosion_time/3)*i/PARTICLENO_MULTIPLIER);
+	}
 	this.sphere.initBuffers();
 	this.cylinder.initBuffers();
 };
@@ -121,6 +150,66 @@ MyTarget.prototype.display = function (){
 	this.sphere.display();
 	this.scene.popMatrix();
 	}
+	if(this.explosion==1){
+		for(var i=0;i<this.pvisible.length;i++){
+			this.scene.pushMatrix();
+			this.scene.translate(this.x, this.y, this.z);
+			this.pdisplay(i);
+			this.scene.popMatrix();
+		}
+	}
+}
 
+MyTarget.prototype.explode = function(){
+	this.explosion=1;
+	this.explosion_count=0;
+}
+
+MyTarget.prototype.update = function(){
+	if(this.explosion==1){
+		this.explosion_count+=UPDATE_SCENE;
+		if(this.explosion_count>this.explosion_time){
+			this.explosion=0;
+		}
+		for(var i=0;i<this.pvisible.length;i++){
+			this.pupdate(i);
+		}
+	}
 
 }
+
+MyTarget.prototype.pupdate=function(i){
+	if(this.pstart[i]<=this.explosion_count){
+		this.pvisible[i]=1;
+	}
+	if(this.pvisible[i]==1){
+		var inc = UPDATE_SCENE * this.pradius[i] / this.ptime[i];
+		this.ptime_count[i]+=UPDATE_SCENE;
+		this.pradius_count[i]+=inc;
+		/*if(i==0){
+			console.log("time count ",this.ptime_count[i], " ",this.ptime[i]," ",this.explosion_count, " ",this.pvisible[i]);
+		}*/
+		if(this.ptime_count[i]>this.ptime[i]){
+			
+			this.pvisible[i]=0;
+			/*if(i==0){
+				console.log("done ",this.pvisible[i]);
+			}*/
+
+		}
+	}
+}
+
+MyTarget.prototype.pdisplay = function(i){
+	if(this.pvisible[i]==1){
+     	this.scene.pushMatrix();
+     	this.scene.rotate(-this.pdegree[i], 0,1,0);
+        this.scene.rotate(this.pslope[i],0,0,1);
+        this.scene.translate(this.pradius_count[i], 0, 0);
+     	this.scene.scale(this.psize[i], this.psize[i], this.psize[i]);
+	 	this.particle.display();
+     	this.scene.popMatrix();
+	}
+}
+
+

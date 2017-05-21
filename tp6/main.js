@@ -24,6 +24,7 @@ serialInclude([
 	'MyTarget.js',
 	'MyTorpedoBody.js',
 	'MyTorpedo.js',
+	'MyParticle.js',
 
 
 	main=function() {

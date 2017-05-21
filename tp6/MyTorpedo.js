@@ -6,7 +6,7 @@
 
 var POSTION_TIME=1;
 var POSITION_HEIGHT=SEMISPHERE_HEIGHT/BASECYLINDER_HEIGHT;
-var TORPEDO_SPEED=5;
+var TORPEDO_SPEED=8;
 
 function MyTorpedo(scene, submarine, targets=0) {
 	CGFobject.call(this,scene);
@@ -44,11 +44,12 @@ MyTorpedo.prototype.constructor=MyTorpedo;
 MyTorpedo.prototype.display = function (){
 	if(this.fire==0){
 		this.scene.pushMatrix();
-		this.scene.translate(this.submarine.x, this.submarine.high+this.relative_height, this.submarine.z);
-		 this.scene.translate(0, 0, 3.2);
+		this.scene.translate(this.submarine.x, this.submarine.high, this.submarine.z);
+		this.scene.translate(0, 0, SUBMARINE_ROT_ADV); 
 		this.scene.rotate(this.submarine.degree,0,1,0);
-		this.scene.rotate(this.submarine.vertical_degree,1,0,0);
-		this.scene.translate(0, 0, -3.2);
+		this.scene.rotate(this.submarine.vertical_degree,1,0,0); 
+		this.scene.translate(0, 0, -SUBMARINE_ROT_ADV); 
+		this.scene.translate(0,this.relative_height,0);
 		this.scene.translate(0, 0, BASECYLINDER_HEIGHT/2-0.5);
 		this.scene.scale(1/BASECYLINDER_HEIGHT, 1/BASECYLINDER_HEIGHT, 1/BASECYLINDER_HEIGHT);
 		this.body.display();
@@ -59,6 +60,7 @@ MyTorpedo.prototype.display = function (){
 		this.scene.translate(this.x, this.high, this.z);
 		this.scene.rotate(this.degree,0,1,0);
 		this.scene.rotate(this.slope,1,0,0);
+		//this.scene.translate(this.radius_count,0,0,1);
 		this.scene.scale(1/BASECYLINDER_HEIGHT, 1/BASECYLINDER_HEIGHT, 1/BASECYLINDER_HEIGHT);
 		this.body.display();
 		this.scene.popMatrix();
@@ -84,18 +86,34 @@ MyTorpedo.prototype.Position = function ()
 }
 
 MyTorpedo.prototype.Fire=function(){
+	/*if(this.target!=0 && this.fire==0){
+		this.position=0;
+		this.fire=1;
+		this.fire_time=0;
+		this.x=this.submarine.x+(BASECYLINDER_HEIGHT/2-0.5)*Math.sin(this.submarine.degree)-SUBMARINE_ROT_ADV*Math.sin(this.submarine.degree);
+		this.z=this.submarine.z+(BASECYLINDER_HEIGHT/2-0.5)*Math.cos(this.submarine.degree)-SUBMARINE_ROT_ADV*(Math.cos(this.submarine.degree)-1)+SUBMARINE_ROT_ADV*(Math.cos(this.submarine.vertical_degree)-1);
+		this.high=this.submarine.high+this.relative_height+SUBMARINE_ROT_ADV*Math.sin(this.submarine.vertical_degree);
+		this.degree=this.submarine.degree;
+		this.slope=this.submarine.vertical_degree;
+		this.fire_totaltime=Math.sqrt((this.x-this.target.x)*(this.x-this.target.x)+(this.high-this.target.y)*(this.high-this.target.y)+(this.z-this.target.z)*(this.z-this.target.z))/TORPEDO_SPEED;
+		this.P1=[this.x, this.high, this.z];
+		this.P2=[this.x+6*Math.sin(this.degree)*Math.cos(this.slope), this.high+6*Math.sin(-this.slope), this.z+6*Math.cos(this.degree)*Math.cos(this.slope)];
+		this.P3=[this.target.x, this.target.y+3, this.target.z];
+		this.P4=[this.target.x, this.target.y, this.target.z];
+	}*/
 	if(this.target!=0 && this.fire==0){
 		this.position=0;
 		this.fire=1;
 		this.fire_time=0;
-		this.x=this.submarine.x+(BASECYLINDER_HEIGHT/2-0.5)*Math.sin(this.submarine.degree);
-		this.z=this.submarine.z+(BASECYLINDER_HEIGHT/2-0.5)*Math.cos(this.submarine.degree);
-		this.high=this.submarine.high+this.relative_height;
+		var base=BASECYLINDER_HEIGHT/2-0.5;
+		this.x=this.submarine.x+Math.sin(this.submarine.degree)*(this.relative_height*Math.sin(this.submarine.vertical_degree)+(base -SUBMARINE_ROT_ADV)*Math.cos(this.submarine.vertical_degree));
+		this.z=this.submarine.z+Math.cos(this.submarine.degree)*(this.relative_height*Math.sin(this.submarine.vertical_degree)+(base -SUBMARINE_ROT_ADV)*Math.cos(this.submarine.vertical_degree))+SUBMARINE_ROT_ADV;
+		this.high=-(base -SUBMARINE_ROT_ADV)*Math.sin(this.submarine.vertical_degree)+this.relative_height*Math.cos(this.submarine.vertical_degree) +this.submarine.high;
 		this.degree=this.submarine.degree;
-		this.slope=0;
+		this.slope=this.submarine.vertical_degree;
 		this.fire_totaltime=Math.sqrt((this.x-this.target.x)*(this.x-this.target.x)+(this.high-this.target.y)*(this.high-this.target.y)+(this.z-this.target.z)*(this.z-this.target.z))/TORPEDO_SPEED;
 		this.P1=[this.x, this.high, this.z];
-		this.P2=[this.x+6*Math.sin(this.degree), this.high, this.z+6*Math.cos(this.degree)];
+		this.P2=[this.x+6*Math.sin(this.degree)*Math.cos(this.slope), this.high+6*Math.sin(-this.slope), this.z+6*Math.cos(this.degree)*Math.cos(this.slope)];
 		this.P3=[this.target.x, this.target.y+3, this.target.z];
 		this.P4=[this.target.x, this.target.y, this.target.z];
 	}
@@ -116,6 +134,7 @@ MyTorpedo.prototype.destroy=function(){
 	this.fire=0;
 	this.target.destroyed=1;
 }
+
 
 MyTorpedo.prototype.update= function (currTime)
 {	if(this.fire==0){
@@ -151,7 +170,6 @@ MyTorpedo.prototype.update= function (currTime)
 			else{
 				if((P[2]-this.z)>0){
 					this.degree=Math.atan((this.x-P[0])/(this.z-P[2]));
-					console.log("deg: ",this.degree/degToRad);
 				}
 				else if((P[2]-this.z)<0){
 					this.degree=180*degToRad+Math.atan((this.x-P[0])/(this.z-P[2]));
@@ -177,6 +195,7 @@ MyTorpedo.prototype.update= function (currTime)
 		}
 		else{
 			this.destroy();
+			this.target.explode();
 		}
 	}
 
