@@ -77,7 +77,7 @@ LightingScene.prototype.init = function(application) {
 	//options
 	this.option1=true;
 	this.option2=false;
-	this.speed=true;
+	this.speed=0;
 	this.Luz_1 = true;
 	this.Luz_2 = true;
 	this.Luz_3 = true;
@@ -333,6 +333,8 @@ if (!this.Luz_4)
 
 		this.submarine.update(currTime);
 		this.torpedo.update(currTime);
+
+		this.submarine.velocity=this.speed;
 
 
 };

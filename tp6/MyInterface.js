@@ -60,6 +60,12 @@ MyInterface.prototype.init = function(application) {
 	this.gui.add(this.scene, 'clock_on');
 
 	this.gui.add(this.scene, 'Texture', this.scene.submarineAppearanceList );
+	// add a slider
+	// must be a numeric variable of the scene, initialized in scene.init e.g.
+	// this.speed=3;
+	// min and max values can be specified as parameters
+	
+	this.gui.add(this.scene, 'speed', -5, 5);
 
 	return true;
 };

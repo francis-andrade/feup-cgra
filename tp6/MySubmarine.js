@@ -62,6 +62,7 @@ MySubmarine.prototype.moveForward = function ()
 {
 	if(this.velocity<=5){
 	this.velocity+=SPEED_INC;
+	this.scene.speed+=SPEED_INC;
 	this.body.increment+=ANGULARVEL_INC*360*UPDATE_SCENE;
 	}
 
@@ -72,6 +73,7 @@ MySubmarine.prototype.moveBack = function ()
 {
 	if(this.velocity>=-5){
 	this.velocity-=SPEED_INC;
+	this.scene.speed-=SPEED_INC;
 	this.body.increment-=ANGULARVEL_INC*360*UPDATE_SCENE;
 	}
 
@@ -126,10 +128,7 @@ MySubmarine.prototype.update= function (currTime)
 	this.z+=this.velocity*Math.cos(this.degree)*UPDATE_SCENE;
 	this.high+=this.velocity*Math.tan(-this.vertical_degree)*UPDATE_SCENE;
 	 	
-	this.body.update();
-
-
-	
+	this.body.update();	
 
 	
 
