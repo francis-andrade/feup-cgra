@@ -60,16 +60,20 @@ this.body.direction_leme=LEME_VER;
 
 MySubmarine.prototype.moveForward = function ()
 {
+	if(this.velocity<=5){
 	this.velocity+=SPEED_INC;
 	this.body.increment+=ANGULARVEL_INC*360*UPDATE_SCENE;
+	}
 
 
 };
 
 MySubmarine.prototype.moveBack = function ()
 {
+	if(this.velocity>=-5){
 	this.velocity-=SPEED_INC;
 	this.body.increment-=ANGULARVEL_INC*360*UPDATE_SCENE;
+	}
 
 };
 
@@ -123,6 +127,7 @@ MySubmarine.prototype.update= function (currTime)
 	this.high+=this.velocity*Math.tan(-this.vertical_degree)*UPDATE_SCENE;
 	 	
 	this.body.update();
+
 
 	
 
